@@ -33,7 +33,8 @@ def get_pizza_orders():
     result = PizzaOrderSChema.dump(entries)
     return jsonify(result)
 
-@app.route('/orders', methods = ['POST'])
+@cross_origin()
+@app.route('/orders', methods =['POST'])
 def post_pizza_order():
     req = request.get_json()
     orderId = req['orderId']
