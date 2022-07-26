@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pizza.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONs'] = False
 
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 class PizzaOrder (db.Model):
     orderId = db.Column(db.Integer, primary_key=True)
