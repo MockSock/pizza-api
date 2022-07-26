@@ -7,6 +7,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pizza.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONs'] = False
 
+db = SQLAlchemy(app)
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
