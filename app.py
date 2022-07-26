@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import cross_origin
@@ -28,8 +28,23 @@ def hello_world():
 
 @cross_origin()
 @app.route('/orders')
-def getPizzaOrders():
-    return 'I will get pizza orders one day'
+def get_pizza_orders():
+    entries = PizzaOrder.query.all()
+    result = PizzaOrderSChema.dump(entries)
+    return jsonify(result)
+
+@app.route('/orders', methods='POST')
+def post_pizza_order():
+    req = request.get_json()
+    orderId = req['orderId']
+    size = req['size']
+    crust = req['crust']
+    topping = req['topping']
+    new_entry = PizzaOrder(orderId=orderId, size=size, crust=crust, topping=topping)
+
+    db.session.add(new_entry)
+    db.session.commit()
+    return redirect(url_for('/orders'))
 
 if __name__ == "__main__":
     db.create_all()
