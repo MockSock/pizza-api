@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from flask_cors import cross_origin
 
 app = Flask(__name__)
@@ -19,6 +20,7 @@ class PizzaOrder (db.Model):
 def hello_world():
     return 'Hello World!'
 
+@cross_origin()
 @app.route('/orders')
 def getPizzaOrders():
     return 'I will get pizza orders one day'
